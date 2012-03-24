@@ -1,6 +1,10 @@
 module ApplicationHelper
 
-	def page_title
+	def logo
+		image_tag("logo.png", :alt => "Sample App", :class => "round")
+	end
+
+	def title
 		base_title = "RoR tutorial app"
 		if @title.nil?
 			base_title
