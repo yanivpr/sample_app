@@ -28,6 +28,10 @@ GEM
     activesupport (3.2.2)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    annotated_models (3.0.2)
+      activesupport
+      annotated_models
+      i18n
     arel (3.0.2)
     builder (3.0.0)
     coffee-rails (3.2.2)
@@ -122,6 +126,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  annotated_models
   coffee-rails (~> 3.2.1)
   jquery-rails
   rails (= 3.2.2)

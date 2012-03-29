@@ -9,6 +9,7 @@ gem 'sqlite3'
 
 group :development do
   gem 'rspec-rails', '2.6.1'
+  gem 'annotated_models'
 end
 
 group :test do
