@@ -10,7 +10,6 @@ padding-top: 20px;
 header img {
 padding: 1em;
 background: #fff;
-float: left;
 }
 
 section {
