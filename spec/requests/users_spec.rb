@@ -44,9 +44,8 @@ describe "Users" do
 		describe "failure" do
 
 			it "should not sign a user in" do
-				visit signin_path
-				fill_in :email,		:with => ""
-				fill_in :password, 	:with => ""
+				empty_user = User.new
+				integration_test_sign_in(empty_user)
 				click_button
 				response.should have_selector("div.flash.error", :content => "Invalid")
 			end
@@ -55,10 +54,7 @@ describe "Users" do
 		describe "success" do
 			it "should sign in user" do
 				user = Factory(:user)
-				visit signin_path
-				fill_in :email,		:with => user.email
-				fill_in :password, 	:with => user.password
-				click_button
+				integration_test_sign_in(user)
 				response.should_not have_selector("div.flash.error", :content => "Invalid")
 				controller.should be_signed_in
 				click_link "Sign out"
