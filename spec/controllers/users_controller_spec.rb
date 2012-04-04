@@ -186,7 +186,7 @@ describe UsersController do
 		
 		it "should deny access to 'edit'" do
 			get :edit, :id => @user
-			reesponse.should redirect_to(signin_path)
+			response.should redirect_to(signin_path)
 		end
 
 		it "should deny access to 'update'" do
