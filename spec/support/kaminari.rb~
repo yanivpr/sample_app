@@ -1,0 +1,5 @@
+module Kaminari::ActionViewExtension::InstanceMethods
+      def page(scope, options = {}, &block)
+      end
+    end
+

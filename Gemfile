@@ -7,10 +7,12 @@ gem 'rails', '3.2.2'
 
 gem 'sqlite3'
 gem 'gravatar_image_tag', '1.0.0'
+gem 'kaminari'
 
 group :development do
   gem 'rspec-rails', '2.6.1'
   gem 'annotated_models'
+  gem 'faker', '0.3.1'
 end
 
 group :test do
