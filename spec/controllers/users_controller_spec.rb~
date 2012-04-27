@@ -13,6 +13,14 @@ describe UsersController do
       get :new
       response.should have_selector("title", :content => "Sign up")
     end
+
+    it "should redirect signed-in user to root" do
+      @user = Factory(:user)
+      test_sign_in(@user)
+      get :new
+      response.should redirect_to(root_path)
+    end
+
   end
 
   describe "GET 'show'" do
@@ -272,7 +280,7 @@ describe UsersController do
 
     describe "as a non-signed_in user" do
 	it "should deny access" do
-		delete :destroy, :id => user
+		delete :destroy, :id => @user
 		response.should redirect_to(signin_path)
 	end
     end
