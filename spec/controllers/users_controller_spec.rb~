@@ -98,6 +98,18 @@ describe UsersController do
 			response.should have_selector("a", :href => "/users?page=2", :content => "2")
 			response.should have_selector("a", :href => "/users?page=2", :content => "Next")
 		end
+
+		it "should not show 'delete' link for non-admins" do
+			get :index
+			response.should_not have_selector("a", :href => "/users/2", :content => "delete")
+		end
+
+		it "should show 'delete' link for admins" do
+			@admin = test_sign_in(Factory(:user, :email => "admin@example.com", :admin => true) )
+			get :index	
+			response.should have_selector("a", :href => "/users/2", :content => "delete")
+
+		end
 	end
 
 
@@ -150,6 +162,13 @@ describe UsersController do
 		it "should render the 'new' page" do
 			post :create, :user => @attr
 			response.should render_template('new')
+		end
+
+		it "should redirect signed-in user to root" do
+		        @user = Factory(:user)
+		        test_sign_in(@user)
+			post :create, :user => @attr
+			response.should redirect_to(root_path)
 		end
 
 	end
@@ -304,6 +323,12 @@ describe UsersController do
 		lambda do
 			delete :destroy, :id => @user
 		end.should change(User, :count).by(-1)
+	end
+
+	it "should not destroy the admin" do
+		lambda do
+			delete :destroy, :id => current_user
+		end.should_not change(User, :count).by(-1)
 	end
 
 	it "should redirect to the users page" do
