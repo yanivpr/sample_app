@@ -28,31 +28,35 @@ describe MicropostsController do
 
 			it "should not create a micropost" do
 				lambda do
-					post :create, :micropost => @attr
+					post :create, :micropost => @attr, :page => 1
 				end.should_not change(Micropost, :count)
 			end
 
 			it "should render the home page" do
-				post :create, :micropost => @attr
+				post :create, :micropost => @attr, :page => 1
 				response.should render_template('pages/home')
 			end
 		end
 
 		describe "success" do
 
+			before(:each) do
+				@attr = { :content => "Lorem ipsum" }
+			end
+
 			it "should create a micropost" do
 				lambda do
-					post: create, :micropost => @attr
+					post :create, :micropost => @attr, :page => 1
 				end.should change(Micropost, :count).by(1)
 			end
 
 			it "should redirect to the home page" do
-				post :create, :micropost => @attr
+				post :create, :micropost => @attr, :page => 1
 				response.should redirect_to(root_path)
 			end
 
 			it "should have a flash message" do
-				post :create, :micropost => @attr
+				post :create, :micropost => @attr, :page => 1
 				flash[:success].should =~ /micropost created/i
 			end
 
