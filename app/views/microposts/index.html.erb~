@@ -1,0 +1,15 @@
+<h1> <%= @user.name %> microposts </h1>
+
+<% if @microposts.empty? %>
+	<p> No microposts </p>
+<% else %>
+
+
+	<%= paginate @microposts %>
+
+	<ul class="microposts">
+		<%= render @microposts %>
+	</ul>
+
+	<%= paginate @microposts %>
+<% end %>

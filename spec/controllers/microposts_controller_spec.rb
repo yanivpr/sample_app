@@ -90,4 +90,33 @@ describe MicropostsController do
 
 		end
 	end
+
+	describe "GET 'index'" do
+		describe "for non-signed-in users" do
+			it "should deny access" do
+				other_user = Factory(:user, :email => Factory.next(:email))
+				get :index, :user_id => other_user
+				response.should redirect_to(signin_path)
+				flash[:notice].should =~ /sign in/i
+			end
+		end
+
+		describe "for signed-in users" do
+			before(:each) do
+				@user = Factory(:user)
+				test_sign_in(@user)
+			end
+			it "should be successful" do
+				other_user = Factory(:user, :email => Factory.next(:email))
+				get :index, :user_id => other_user
+				response.should be_success
+			end
+			it "should have the right title" do
+				other_user = Factory(:user, :email => Factory.next(:email))
+				get :index, :user_id => other_user
+				response.should have_selector("title", :content => "#{other_user.name} microposts")
+			end
+		
+		end
+	end
 end

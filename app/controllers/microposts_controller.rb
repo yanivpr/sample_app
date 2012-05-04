@@ -1,6 +1,16 @@
 class MicropostsController < ApplicationController
-	before_filter :authenticate, :only => [:create, :destroy]
+	before_filter :authenticate, :only => [:create, :destroy, :index]
 	before_filter :authorized_user, :only => :destroy
+
+	def index
+		@user = User.find(params[:user_id])
+		@title ="#{@user.name} microposts"
+		if @user.microposts.empty?
+			@microposts = []
+		else
+			@microposts = @user.microposts.page(params[:page]).per(30)	
+		end
+	end
 
 	def create
 		@micropost = current_user.microposts.build(params[:micropost])
