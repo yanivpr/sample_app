@@ -1,0 +1,8 @@
+<%= form_for current_user.relationships.where(:followed_id => @user.id).first(1),
+	:html => { :method => :delete },
+	:remote => true	do |f| %>
+	<div class="actions">
+		<%= f.submit "Unfollow" %>
+	</div>
+<% end %>
+
